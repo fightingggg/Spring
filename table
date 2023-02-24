@@ -1,0 +1,59 @@
+package com.human.springboot;
+
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+@Controller
+public class MyController {
+	
+	
+	
+	@GetMapping("/table")
+	public String table(HttpServletRequest req, Model model) {
+		String str1=req.getParameter("row");
+		String str2=req.getParameter("col");
+		int tr=Integer.parseInt(str1);
+		int td=Integer.parseInt(str2);
+		String table="";
+		int count =1;
+		for(int i=0; i<tr; i++) {
+			table=table+"<tr>";
+			for(int j=0; j<td; j++) {
+				table=table+"<td>"+count+"</td>";
+				count++;
+			}
+			table=table+"</tr>";
+		}
+		String sol="<table border=1>"+table+"</table>";
+		model.addAttribute("table",sol);
+		
+		
+		return "table";
+	}
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  ${table}
+  
+</body>
+</html>
