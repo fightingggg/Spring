@@ -1,0 +1,42 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form action = "/course">
+   <table border=1 >
+        <tr><td>성별</td><td><input type=radio name=gender value=male>남성
+            <input type=radio name=gender value=female>여성</td></tr>
+            <tr><td>도시</td><td>
+                <input type=radio name=city value=cheonan>천안
+                <input type=radio name=city value=suwon>수원
+                <input type=radio name=city value=seoul>서울
+            </td></tr>
+        <tr><td>기간</td><td><input type=date name=start>~
+        <input type=date name=end></td></tr>
+        <!-- <tr colspan="4"><td><td></td><td></td></Td></tr> -->
+
+        <tr><td>수업과정</td><td>
+            <input type=checkbox name=interest value=java>자바
+            <input type=checkbox name=interest value=js>JS
+            <input type=checkbox name=interest value=HTML/CSS>HTML/CSS<br>
+            <input type=checkbox name=interest value=db>DB
+            <input type=checkbox name=interest value=spring>Spring
+            <input type=checkbox name=interest value=Rlanguage>R언어<br>
+            <input type=checkbox name=interest value=arduino>Arduino
+            <input type=checkbox name=interest value=ML>ML
+            <input type=checkbox name=interest value=DL>DL</td></tr>
+        <tr><td colspan=2 align=center>
+                <input type=submit value='전송'>
+                <input type=reset value='지우기'>
+            </td></tr>
+    </table>
+    </form>
+    
+</body>
+</html>
