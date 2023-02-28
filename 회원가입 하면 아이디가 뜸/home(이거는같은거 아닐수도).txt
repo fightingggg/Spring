@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page session="true" %> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+</head>
+<body>
+${logininfo }
+${loginid}
+${passcode}
+<!--  <h1>userid[<%=session.getAttribute("userid") %>]</h1>-->
+<!--<% if(session.getAttribute("userid")==null) {%> -->
+<!--<a href='/login'>로그인</a>&nbsp;<a href = '/signin'>회원가입</a>-->
+<!--<%} else {
+	out.println (session.getAttribute("userid"));
+%>
+	&nbsp;<a href='/logout'>로그아웃</a>
+<%} %>-->
+
+</body>
+</html>

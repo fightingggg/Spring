@@ -1,0 +1,125 @@
+package com.human.springboot;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+//import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+@Controller
+public class HomeController {
+
+	
+	@GetMapping("/home")
+	public String doHome(HttpServletRequest req, Model model) {
+		HttpSession sinfo = req.getSession();
+		if(sinfo.getAttribute("userid")==null) {
+			model.addAttribute("logininfo",
+					"<a href='/login'>로그인</a>&nbsp;<a href='/signin'>회원가입</a>");
+	} else {
+		model.addAttribute("logininfo",
+				sinfo.getAttribute("userid")+"&nbsp;<a href='/logout'>로그아웃</a>");
+	}
+		return "home";
+	}
+	
+//	@GetMapping("/logout")
+//	public String doLogout(HttpServletRequest req) {
+//		HttpSession sinfo = req.getSession();
+//		sinfo.invalidate(); // 모든 세션정보를 remove all.
+//		return "redirect:/home"; //위에 있는 home으로 가는거 : redirect
+//	}
+//
+//
+//	@GetMapping("/login")
+//	public String showLogin() {
+//		return "login";
+//	}
+	
+	@PostMapping("/doLogin")
+	public String doLogin(HttpServletRequest req) {
+		
+		String loginid= req.getParameter("loginid");
+		String pwd = req.getParameter("passcode");
+		System.out.println("loginid ["+loginid+"] pwd["+pwd+"]");
+		HttpSession sinfo = req.getSession();
+		if(loginid.equals("YT") && pwd.equals("123456")) {
+			sinfo.setAttribute("userid", loginid);
+			
+		} 
+//		return "home"; // request mapping home으로 가라는거다 맨 위쪽에 있는 저기 home을 실행시킨다.
+		return "redirect://home";
+	}
+	
+	@GetMapping("/logout")
+	public String doLogout(HttpServletRequest req) {
+		HttpSession sinfo = req.getSession();
+		sinfo.invalidate();
+		return "redirect:/home";
+		
+	}
+	@GetMapping("/login")
+	public String showLogin(HttpServletRequest req, Model model) {
+		HttpSession session=req.getSession();
+		String userid = session.getAttribute("userid")+"";
+		model.addAttribute("id",userid);
+		
+		return "login";
+	}
+	
+	//"setparameter는 form 태그 안에서"
+	
+	
+	@GetMapping("/signin")
+	public String showSignin() {
+		return "signin";
+	}
+	
+	@PostMapping("/doSignin")
+	public String dosignin(HttpServletRequest req, Model model) {
+		HttpSession session=req.getSession();
+		
+		String newid=req.getParameter("loginid");
+		String newpasscode=req.getParameter("passcode");
+		String newpasscode1=req.getParameter("passcode1");
+		String[]interest =req.getParameterValues("interest");
+		
+		if(newpasscode.equals(newpasscode1)) {
+			session.setAttribute("userid", newid);
+			return "redirect:/login";
+		} else {
+			model.addAttribute("guide","<script> alert('비밀번호가 일치하지 않습니다.')</script>");
+			return "signin";
+		}
+		
+		
+//		return "redirect:/home";
+	}
+
+}
+
+
+//@GetMapping("/home")
+//public String course(HttpServletRequest req, Model model) {	
+//	String loginid = req.getParameter("loginid");
+//	String passcode = req.getParameter("passcode");
+//	
+//	
+//	model.addAttribute("loginid",loginid);
+//	model.addAttribute("passcode",passcode);
+//	
+//	
+//	return "course";
+//}
+//}
+
+//HttpSession session =req.getSession();
+//session.setAttribute
+
+//<%@ page session ="true" %>
+//session.getAttribute
+
+
+

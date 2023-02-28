@@ -1,0 +1,42 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Signin</title>
+</head>
+<body>
+<form action="/doSignin" method="post" id=frmSignin> 
+<table border=1>
+<tr><td>로긴아이디:</td><td><input type =text name =loginid ></td></tr>
+<tr><td>비밀번호:</td><td><input type =password name =passcode></td></tr>
+<tr><td>비밀번호확인:</td><td><input type =password name =passcode1></td></tr>
+<tr><td>관심분야:</td><td>
+	<input type=checkbox name=interest value='politics'>정치
+	<input type=checkbox name=interest value='economy'>경제
+	<input type=checkbox name=interest value='society'>사회<br>
+	<input type=checkbox name=interest value='IT'>정보통신
+	<input type=checkbox name=interest value='sports'>스포츠
+	<input type=checkbox name=interest value='finance'>금융<br>
+	<input type=checkbox name=interest value='realty'>부동산
+	<input type=checkbox name=interest value='social'>사회</td></tr>
+	<tr><td colspan =2 align=center>
+		<input type=submit value='가입'>
+		<input type=reset value='비우기'>
+		<a href='/home'>가입취소</a></td></tr>
+	
+</table>
+</body>
+<script src='https://code.jquery.com/jquery-latest.js'></script>
+<script>
+$(document)
+.on('submit','#frmSignin',function(){
+	if($('input[name=passcode]').val()==$('input[name=passcode1]').val()){
+		alert('비밀번호와 비밀번호 확인이 서로 다릅니다.');
+		return false; // submit을 중단
+	}
+	return true; // submit 계속 진행(데이터를 컨트롤러에 전송)
+})
+</script>
+</html>
