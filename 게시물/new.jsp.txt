@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>new</title>
+</head>
+<body>
+<table>
+<form action="addPost" method="post">
+<tr><td>닉네임</td><td><input type=text name=writer></td></tr>
+<tr><td>제목</td> <td><input type=text name=title></td></tr>
+<tr><td>내용</td> <td><textarea name='content'></textarea></td></tr>
+<tr>
+	<td colspan=2>
+	<input type='submit' value="등록">
+	<input type='button' value="취소" id="cancel">
+	<input type="reset"  value= "비우기">
+	</td>
+</tr>
+</table>
+</body><script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+$(document)
+.on('click','#cancel',function(){
+	document.location = '/list';
+	return false;
+})
+
+</script>
+
+</html>

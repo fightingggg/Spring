@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border=1>
+
+<tr><td><input type="hidden" id= "seqno" value = "${post.seqno}" readonly></td></tr>
+<tr><td>글쓴이 : ${post.writer}</td></tr>
+<tr><td>조회수 : ${post.readcount}</td></tr>
+<tr><td>제목 : ${post.title}</td></tr>
+<tr><td style="text-align:center">내용</td></tr>
+<tr><td><textarea readonly>${post.content}</textarea></td></tr>
+<tr><td>작성일 : ${post.created}</td></tr>
+<tr><td>수정일 : ${post.updated}</td></tr>
+<tr>
+	<td style="text-align:center">
+		<input type="button" value="삭제" id="delete"> 
+		<input type="button" value="수정" id="modify"> 
+		<a href='/list'>목록보기</a>
+	</td>
+</tr>
+</table>
+</body><script src="https://code.jquery.com/jquery-latest.js"></script>
+<script>
+$(document)
+.on('click','#delete',function(){
+	document.location = '/deletePost/'+$('#seqno').val();
+	return false;
+})
+.on('click','#modify',function(){
+	document.location = '/update/'+$('#seqno').val();
+})
+
+
+</script>
+
+
+</html>

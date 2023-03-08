@@ -1,0 +1,125 @@
+package com.human.springboot;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
+@Controller
+public class Mycontroller {
+	@Autowired
+	private IDAO idao;
+	
+	@GetMapping("/list")
+	public String list(Model model) {
+		ArrayList<BBSDTO> alBBS = idao.list();
+		model.addAttribute("BBST",alBBS);
+		return "list";
+		
+	}
+
+
+	
+	@GetMapping("/new")
+	public String Shownew(Model model){
+		return "new";
+	}
+	
+	@PostMapping("addPost")
+	public String addpost(HttpServletRequest req) {
+		
+		SimpleDateFormat today = new SimpleDateFormat("yy.MM.dd.hh:mm:ss");
+		Date date = new Date();
+		
+		
+		
+		String title= req.getParameter("title");
+		String content = req.getParameter("content");
+//		String now = today.format(date);
+		String writer = req.getParameter("writer");
+		
+		idao.addPost(title,content,writer);
+		return "redirect:/list";
+	}
+	
+	@GetMapping("/view/{seqno}")
+	public String showView(@PathVariable("seqno") int seqno, Model model) {
+		
+		idao.increaseView(seqno);
+		
+		BBSDTO post= idao.showpost(seqno);
+		model.addAttribute("post",post);
+		
+		return "view";
+	}
+	
+	
+	@GetMapping("/update/{seqno}")
+	public String update(@PathVariable("seqno") int seqno, Model model) {
+		
+		BBSDTO post = idao.showpost(seqno);
+		model.addAttribute("post",post);
+		
+		return "update";
+	}
+	
+	@PostMapping("/updatePost")
+	public String updatePost(HttpServletRequest req) {
+		
+		SimpleDateFormat today = new SimpleDateFormat("yy.MM.dd hh:mm:ss");
+		Date date = new Date();
+		
+		int seqno = Integer.parseInt(req.getParameter("seqno"));
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		
+		String now = today.format(date);
+		String writer = req.getParameter("writer");
+		
+		
+		idao.updatePost(seqno,title,content,now,writer);
+		return "redirect:/list";
+	}
+	
+	@GetMapping("/deletePost/{sno}")
+	public String deletepost(@PathVariable("sno") int sno) {
+		
+		idao.deletePost(sno);
+		
+		return "redirect:/list";
+	}
+	
+	
+	
+	
+//	@GetMapping("/")
+//	@PostMapping("/AddBBS")
+//	public String doAddBBS(HttpServletRequest req) {
+//		String s_no = req.getParameter("s_no");
+//		String title= req.getParameter("title");
+//		String content = req.getParameter("content");
+//		String created = req.getParameter("created");
+//		String updated = req.getParameter("updated");
+//		int readcount=Integer.parseInt(req.getParameter("readcount"));
+//		String writer = req.getParameter("writer");
+//		   return "redirect:/list";
+//	}
+//
+//}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

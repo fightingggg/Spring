@@ -1,0 +1,17 @@
+package com.human.springboot;
+
+import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface IDAO {
+	ArrayList<BBSDTO> list();
+	void doAddBBS(String x1, String x2, String x3, String x4, String x5, int x6, String x7);
+	void addPost(String title, String content,String writer);
+	void increaseView(int seqno);
+	BBSDTO showpost(int seqno);
+	void updatePost(int seqno, String title, String content, String now, String writer);
+	void deletePost(int seqno);
+
+}
